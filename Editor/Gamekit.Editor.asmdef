@@ -1,0 +1,16 @@
+{
+    "name": "Gamekit.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2c4cf0e84f8d9de4a9cf55ed9ff2947d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
