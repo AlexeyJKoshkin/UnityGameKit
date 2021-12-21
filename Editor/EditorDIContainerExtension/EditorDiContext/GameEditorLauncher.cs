@@ -16,12 +16,6 @@ namespace GameKit.EditorContext
         }
 
         protected abstract void Binding(TIWrapper diContainer);
-            /*foreach (var installer in _editorInstallers.Where(o => o != null))
-        {
-            installer.Initialize(diContainer);
-            installer.InstallBindings();
-        }*/
-      
 
         protected abstract void LunchEditor(TIWrapper diContainer);
         
