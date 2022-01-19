@@ -1,6 +1,6 @@
 {
   "name": "com.koshkin.gamekit",
-  "version": "0.9.2",
+  "version": "0.9.21",
   "description": "Helpers",
   "license": "MIT",
   "repository": {
@@ -13,6 +13,5 @@
     "editor"
   ],
   "displayName": "GameKit",
-  "unity": "2020.3",
-  "dependencies": {}
+  "unity": "2020.3"
 }
