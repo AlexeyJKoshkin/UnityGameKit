@@ -1,3 +1,16 @@
 {
-	"name": "GameKit"
+    "name": "GameKit",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ca085f2ed134e894f9656b69a886c4bd"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
