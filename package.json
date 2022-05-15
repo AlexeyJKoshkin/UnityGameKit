@@ -13,5 +13,6 @@
     "editor"
   ],
   "displayName": "GameKit",
-  "unity": "2020.3"
+  "unity": "2020.3",
+  "type": "tool"
 }
