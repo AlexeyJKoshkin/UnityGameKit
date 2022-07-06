@@ -8,7 +8,7 @@ namespace GameKit.Editor
         static CustomEditorStyles()
         {
             if (CustomEditorSkin == null)
-                CustomEditorSkin = EditorUtils.GetSkinByName("KitchenEditorSkin");
+                CustomEditorSkin = EditorUtils.GetSkinByName("CustomEditorSkin");
 
             CenteredLabel = CustomEditorSkin.GetStyle("centeredLabel");
             LeftPanel     = CustomEditorSkin.GetStyle("leftPanel");
