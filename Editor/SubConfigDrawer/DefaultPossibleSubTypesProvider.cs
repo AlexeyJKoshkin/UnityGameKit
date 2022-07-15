@@ -7,18 +7,16 @@ using UnityEngine;
 namespace GameKit.Editor
 {
 
-    public class DefaultSubScriptableFactory :ISubScriptableFactory
+    public class DefaultScriptableFactory :ISubScriptableFactory
     {
-        private readonly Type _type;
-        private Dictionary<Type, bool> _allowMultitype = new Dictionary<Type, bool>();
+        private readonly Dictionary<Type, bool> _allowMultitype = new Dictionary<Type, bool>();
 
         private readonly ValueNameBox<Type> _possibleTypes;
 
-        public DefaultSubScriptableFactory(Type type)
+        public DefaultScriptableFactory(Type type)
         {
-            _type = type;
             _possibleTypes = new ValueNameBox<Type>(GetContentFor);
-            _possibleTypes.InitValues(ReflectionHelper.GetAllTypesInSolution(_type,false));
+            _possibleTypes.InitValues(ReflectionHelper.GetAllTypesInSolution(type,false));
             foreach (var t in _possibleTypes)
             {
                 _allowMultitype.Add(t, t.HasAttribute<AllowMultiItemsAttribute>());
@@ -59,8 +57,9 @@ namespace GameKit.Editor
                     
                     var type = userdata as Type;
                     if (type == null) return;
+                    var item = ScriptableObject.CreateInstance(type);
                     
-                    onAddNewElement?.Invoke(ScriptableObject.CreateInstance(type));
+                    onAddNewElement?.Invoke(item);
                    
                 }, pair.item);
             }

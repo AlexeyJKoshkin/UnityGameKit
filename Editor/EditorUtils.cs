@@ -194,11 +194,21 @@ namespace GameKit.Editor
         }
 
 
-        public static IEnumerable<T> LoadAllAssetsFrom<T>(Object target) where T : Object
+        public static IEnumerable<T> LoadAllAssetsFrom<T>(Object target, bool includeMyself = false) where T : Object
         {
             foreach (var asset in AssetDatabase.LoadAllAssetsAtPath(AssetDatabase.GetAssetPath(target)))
+            {
                 if (asset is T myAsset)
+                {
+                    if (asset == target)
+                    {
+                        if (includeMyself) yield return myAsset;
+                        else continue;
+                    }
                     yield return myAsset;
+                }
+            }
+           
         }
 
         #endregion

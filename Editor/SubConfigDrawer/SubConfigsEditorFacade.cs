@@ -15,7 +15,7 @@ namespace GameKit.Editor
 
         public SubConfigsEditorFacade(SerializedObject serializedObject, SerializedProperty property,string label = "Items", ISubScriptableFactory factory = null)
         {
-            var provider = factory ?? new DefaultSubScriptableFactory(typeof(T));
+            var provider = factory ?? new DefaultScriptableFactory(typeof(T));
             _list = CreateReorderable(serializedObject, property, label);
             _list.onAddCallback += (list) => provider.DrawCreateNewElementMenu(this, OnAddCallbackHandler);
             FixReference(serializedObject);
