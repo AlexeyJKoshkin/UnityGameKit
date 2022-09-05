@@ -1,49 +1,24 @@
-using GameKit.CustomGameEditor;
+using VContainer;
 
-namespace GameKit.EditorContext
+namespace GameKit.CustomGameEditor
 {
-    public abstract class GameEditorLauncher<TIWrapper> : AbstractGameEditorLauncher where TIWrapper : IDIWrapper,new()
-    {
-        public sealed override void Lunch()
-        {
-            TIWrapper diContainer = new TIWrapper();
-            PreBinding();
-            Binding(diContainer);
-            PostBinding();
-            PreLunch();
-            LunchEditor(diContainer);
-            diContainer.FlushBindings();
-        }
-
-        protected abstract void Binding(TIWrapper diContainer);
-
-        protected abstract void LunchEditor(TIWrapper diContainer);
-        
-        protected virtual void PreBinding()
-        {
-        }
-
-        protected virtual void PostBinding()
-        {
-        }
-
-        protected virtual void PreLunch()
-        {
-        }
-    }
-
-    public abstract class GameEditorLauncher<T,TIWrapper> : GameEditorLauncher<TIWrapper> where T : class, ICustomGameEditor  where TIWrapper : IDIWrapper,new()
+    public abstract class GameEditorLauncher<T> : AbstractGameEditorLauncher
+        where T : class, ICustomGameEditor 
     {
         public override bool IsWork => CustomGameEditor != null;
         protected T CustomGameEditor;
 
-        protected override void LunchEditor(TIWrapper diContainer)
+        protected override void LunchEditor(IObjectResolver diContainer)
         {
-            diContainer.BindAsSingle<T>();
-            diContainer.ResolveRoots();
             CustomGameEditor                      =  diContainer.Resolve<T>();
             CustomGameEditor.OnFinishWorkingEvent += () => CustomGameEditor = null;
             CustomGameEditor.StartWork();
+        }
+
+        protected override void PreBinding(ContainerBuilder diContainer)
+        {
+            base.PreBinding(diContainer);
+            diContainer.Register<T>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
         }
 
         public override void Stop()
