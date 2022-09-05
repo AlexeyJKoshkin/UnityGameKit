@@ -4,9 +4,7 @@ using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace GameKit.Editor 
-{
-    
+namespace GameKit.Editor {
     public class GenericSelector<T> : OdinSelector<T>
     {
         private static readonly System.Reflection.FieldInfo InspectorNameAttribute_displayName;

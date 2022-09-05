@@ -2,7 +2,8 @@
     "name": "Gamekit.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:2c4cf0e84f8d9de4a9cf55ed9ff2947d"
+        "GUID:2c4cf0e84f8d9de4a9cf55ed9ff2947d",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [
         "Editor"
