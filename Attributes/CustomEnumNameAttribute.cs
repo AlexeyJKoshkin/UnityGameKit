@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GameKit
 {
+    [Conditional("UNITY_EDITOR")]
     /// <summary>
     ///     Маркируем этим атрибутом енума, в редакторе  гуи подтянет отображение
     /// </summary>

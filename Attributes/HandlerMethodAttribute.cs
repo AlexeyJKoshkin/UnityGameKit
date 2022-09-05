@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
 
-namespace GameKit {
+namespace GameKit 
+{
+    [Conditional("UNITY_EDITOR")]
     /// <summary>
     /// Атрибут для физических детектов
     /// </summary>

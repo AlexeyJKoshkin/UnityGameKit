@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GameKit.Editor
 {
-    public abstract class SearchSelectEnumDrawer<T> : ISelectionGUI<T>
+    public abstract class SearchSelectEnumDrawer<T> : SelectionGUI<T>
     {
         private readonly Dictionary<string, T> _nameToItemDictionary;
         private int _currentItemIndex;
@@ -24,22 +24,7 @@ namespace GameKit.Editor
         }
 
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _nameToItemDictionary.Values.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public bool IsSelected => _currentItemIndex > 0 && _filteredItems.Length > 0;
-
-        public T CurrentValue { get; private set; }
-
-        public int Count => _nameToItemDictionary.Count;
-
+    
         public void SetSelected(T element)
         {
             _filterText = "";
@@ -114,5 +99,20 @@ namespace GameKit.Editor
 
             InitValues(Enum.GetValues(typeof(T)).Cast<T>(), null);
         }
+
+        protected override int SelecttionGUI(int index, GUIContent label, float labelwidth = 70)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int SelecttionGUI(int index, Rect rect, GUIContent label = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override string DefaultGetName(T obj, int n)
+        {
+            throw new NotImplementedException();
+        }
     }
-}
+}*/

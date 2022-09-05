@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GameKit
 {
+    [Conditional("UNITY_EDITOR")]
     /// <summary>
     ///     Маркируем эьим атрибутов класс, чтобы в редакторе при выборе типа печатолось читаемое имя
     /// </summary>

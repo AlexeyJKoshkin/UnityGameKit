@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 namespace GameKit
 {
+    [Conditional("UNITY_EDITOR")]
     [System.AttributeUsage(System.AttributeTargets.Field, AllowMultiple = false)]
     public class SubclassSelectorAttribute : PropertyAttribute
     {

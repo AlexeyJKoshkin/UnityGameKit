@@ -15,4 +15,5 @@
   "displayName": "GameKit",
   "unity": "2020.3",
   "type": "tool"
+  "dependencies": { "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.11.1"}
 }
