@@ -15,7 +15,7 @@ namespace GameKit.CustomGameEditor
             CustomGameEditor.StartWork();
         }
 
-        protected override void PreBinding(ContainerBuilder diContainer)
+        protected override void PreBinding(IContainerBuilder diContainer)
         {
             base.PreBinding(diContainer);
             diContainer.Register<T>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
