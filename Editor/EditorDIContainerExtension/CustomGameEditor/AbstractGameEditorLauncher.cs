@@ -10,7 +10,7 @@ namespace GameKit.CustomGameEditor
         public string Description;
         public abstract bool IsWork { get; }
         public virtual string EditorName => name;
-        [SerializeField] private BaseGameEditorInstallers[] _installers;
+        [SerializeField] private BaseGameEditorInstaller[] _installers;
 #if ODIN_INSPECTOR
         [Sirenix.OdinInspector.Button, Sirenix.OdinInspector.HideIf("IsWork")]
 #endif
