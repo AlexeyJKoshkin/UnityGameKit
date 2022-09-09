@@ -83,10 +83,7 @@ namespace GameKit.Editor
             }
         }
 
-      
-
-
-        protected override int SelecttionGUI(int selectionIndex, GUIContent label, float labelwidth = 70)
+        protected override int DrawSelectionGUI(int selectionIndex, GUIContent label, float labelwidth = 70)
         {
             //  var btnwidth = CalcBtnWidth();
             if (label != GUIContent.none)
@@ -96,7 +93,7 @@ namespace GameKit.Editor
             return selectionIndex;
         }
 
-        protected override int SelecttionGUI(int index, Rect rect, GUIContent label = null)
+        protected override int DrawSelectionGUI(int index, Rect rect, GUIContent label = null)
         {
             if (label != null)
             {

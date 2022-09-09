@@ -49,10 +49,6 @@ namespace GameKit.Editor
         public bool IsSelected => Count > 0 && _currentIndex > -1;
 
         public int Count => _valueBox.Count;
-        public IEnumerable<(T item, GUIContent content)> GetItemsWithContent()
-        {
-            return _valueBox.IterateItemWithContent();
-        }
 
         /// <summary>
         ///     Текущее выбранное значение
@@ -81,6 +77,11 @@ namespace GameKit.Editor
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        public IEnumerable<(T item, GUIContent content)> GetItemsWithContent()
+        {
+            return _valueBox.IterateItemWithContent();
         }
 
         public void SetCurrent(T value)
@@ -229,8 +230,8 @@ namespace GameKit.Editor
             else
             {
                 EditorGUI.BeginChangeCheck();
-                var index = SelecttionGUI(_currentIndex, rect,
-                    string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label));
+                var index = DrawSelectionGUI(_currentIndex, rect,
+                                             string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label));
                 if (EditorGUI.EndChangeCheck())
                     if (OnSelectNewItemCallback != null && index != _currentIndex)
                     {
@@ -259,8 +260,8 @@ namespace GameKit.Editor
             else
             {
                 EditorGUI.BeginChangeCheck();
-                var index = SelecttionGUI(_currentIndex,
-                    string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label), labelwidth);
+                var index = DrawSelectionGUI(_currentIndex,
+                                             string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label), labelwidth);
                 if (EditorGUI.EndChangeCheck())
                     if (OnSelectNewItemCallback != null && index != _currentIndex)
                     {
@@ -335,9 +336,9 @@ namespace GameKit.Editor
                     }
         }*/
 
-        protected abstract int SelecttionGUI(int index, GUIContent label, float labelwidth = 70);
+        protected abstract int DrawSelectionGUI(int index, GUIContent label, float labelwidth = 70);
 
-        protected abstract int SelecttionGUI(int index, Rect rect, GUIContent label = null);
+        protected abstract int DrawSelectionGUI(int index, Rect rect, GUIContent label = null);
 
         protected abstract string DefaultGetName(T obj, int n);
 

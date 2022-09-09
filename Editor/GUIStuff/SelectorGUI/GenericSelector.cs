@@ -1,20 +1,19 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEngine;
 
-namespace GameKit.Editor {
+namespace GameKit.Editor
+{
     public class GenericSelector<T> : OdinSelector<T>
     {
-        private static readonly System.Reflection.FieldInfo InspectorNameAttribute_displayName;
-    
         private static readonly string title = typeof(T).Name.SplitPascalCase();
-        private float maxEnumLabelWidth;
-        private ulong curentMouseOverValue;
+        private readonly float maxEnumLabelWidth;
+        private ulong _currentMouseOverValue;
         private bool wasMouseDown;
 
-        private ISelectionGUI<T> _popUpOdinSelector;
+        private readonly ISelectionGUI<T> _popUpOdinSelector;
 
         public GenericSelector(ISelectionGUI<T> popUpSelector)
         {
@@ -26,32 +25,31 @@ namespace GameKit.Editor {
         /// <summary>
         /// By default, the enum type will be drawn as the title for the selector. No title will be drawn if the string is null or empty.
         /// </summary>
-        public override string Title => GlobalConfig<GeneralDrawerConfig>.Instance.DrawEnumTypeTitle ? title : null;
+        public override string Title => GlobalConfig<GeneralDrawerConfig>.Instance.DrawEnumTypeTitle ? title :null;
 
 
         /// <summary>Populates the tree with all enum values.</summary>
         protected override void BuildSelectionTree(OdinMenuTree tree)
         {
             tree.Selection.SupportsMultiSelect = false;
-            tree.Config.DrawSearchToolbar      = true;
+            tree.Config.DrawSearchToolbar = true;
 
             _popUpOdinSelector.GetItemsWithContent().ForEach(e =>
-                                                             {
-                                                                 tree.Add(e.Item2.text, e.Item1);
-                                                             });
-            tree.EnumerateTree().ForEach(x => x.OnDrawItem += this.DrawEnumItem);
+            {
+                tree.Add(e.Item2.text, e.Item1);
+            });
+            tree.EnumerateTree().ForEach(x => x.OnDrawItem += this.DrawItem);
             tree.EnumerateTree().ForEach(x => x.OnDrawItem += this.DrawEnumInfo);
         }
 
         private void DrawEnumInfo(OdinMenuItem obj)
         {
-           
-            if (!(obj.Value is T enumMember)) return;
-            GUI.DrawTexture(obj.Rect.Padding(5f, 3f).AlignRight(16f).AlignCenterY(16f), (Texture) EditorIcons.ConsoleInfoIcon);
+            if (!(obj.Value is T)) return;
+            GUI.DrawTexture(obj.Rect.Padding(5f, 3f).AlignRight(16f).AlignCenterY(16f), EditorIcons.ConsoleInfoIcon);
             GUI.Label(obj.Rect, new GUIContent("", obj.SmartName));
         }
 
-        private void DrawEnumItem(OdinMenuItem obj)
+        private void DrawItem(OdinMenuItem obj)
         {
             if (Event.current.type == UnityEngine.EventType.MouseDown && obj.Rect.Contains(Event.current.mousePosition))
             {
@@ -87,7 +85,7 @@ namespace GameKit.Editor {
         /// <summary>Selects an enum.</summary>
         public override void SetSelection(T selected)
         {
-            _popUpOdinSelector.SetCurrent(selected);
+          //  _popUpOdinSelector.SetCurrent(selected);
         }
     }
 }

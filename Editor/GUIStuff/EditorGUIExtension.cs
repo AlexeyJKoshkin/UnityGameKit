@@ -58,7 +58,6 @@ namespace GameKit.Editor
             GUI.enabled = false;
             EditorGUILayout.ObjectField("Script:",  GetScriptObject(editor.target),editor.target.GetType(), false);
             GUI.enabled = true;
-            
         }
 
         private static Object GetScriptObject(Object editorTarget)
