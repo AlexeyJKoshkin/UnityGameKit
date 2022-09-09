@@ -21,9 +21,11 @@ namespace GameKit.Editor
     public class SeveralGridSelector<T> : ISeveralSelector<T>
     {
         public int CountSelectedElements { get; private set; }
-        
-        public delegate bool ElemntDrawerDelegate(T item, bool isSelected, GUIContent content, int index,
-                                                  params GUILayoutOption[] options);
+
+        public delegate bool ElementDrawerDelegate(T item, bool isSelected, GUIContent content, int index,
+                                                   params GUILayoutOption[] options);
+
+        public Func<T, bool> CanDrawElementChecker = arg => true;
 
         private readonly ValueNameBox<T> _valueBox;
 
@@ -46,15 +48,13 @@ namespace GameKit.Editor
         private bool _wasChange;
         private int _xCount = 4;
 
-        public ElemntDrawerDelegate ItemElementDrawCallback;
+        public ElementDrawerDelegate ItemElementDrawCallback;
 
 
         public int PixelSpaceBetweenItems = 2;
 
         public SeveralGridSelector(bool showScroll, ContentMaker<T> guicontentHelper) : this(showScroll, null,
-            guicontentHelper)
-        {
-        }
+                                                                                             guicontentHelper) { }
 
         public SeveralGridSelector(bool showScroll, IEnumerable<T> allValues = null,
                                    ContentMaker<T> guicontentHelper = null)
@@ -68,7 +68,7 @@ namespace GameKit.Editor
         public int XCount
         {
             get => _xCount;
-            set => _xCount = Mathf.Clamp(value, 1, 6);
+            set => _xCount = Mathf.Clamp(value, 1, 20);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace GameKit.Editor
             set
             {
                 _drawingAction = null;
-                _showScroll     = value;
+                _showScroll    = value;
                 if (value)
                 {
                     _drawingAction =  PrepareScroll;
@@ -94,13 +94,11 @@ namespace GameKit.Editor
             }
         }
 
-       
 
         public bool DoSelectGUI(GUIStyle style = null, params GUILayoutOption[] options)
         {
             _tempStyle   = style ?? GUI.skin.toggle;
             _tempOptions = options;
-            // EditorGUI.BeginChangeCheck();
             _drawingAction?.Invoke();
             return _wasChange;
         }
@@ -193,10 +191,10 @@ namespace GameKit.Editor
                 _valueBox.Sort(comparison);
             _selected = new bool[_valueBox.Count];
         }
-        
+
         public void AddValue(T value, bool isSelected)
         {
-            if(_valueBox.Contains(value)) return;
+            if (_valueBox.Contains(value)) return;
             _valueBox.Add(value);
             if (isSelected)
                 CountSelectedElements++;
@@ -239,7 +237,7 @@ namespace GameKit.Editor
         private void PrepareScroll()
         {
             _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition, false, false, GUIStyle.none,
-                GUI.skin.verticalScrollbar, GUI.skin.scrollView, GUILayout.ExpandHeight(false));
+                                                              GUI.skin.verticalScrollbar, GUI.skin.scrollView, GUILayout.ExpandHeight(false));
         }
 
         protected virtual void Drawing()
@@ -259,6 +257,22 @@ namespace GameKit.Editor
         private void DrawElement(int i)
         {
             var wasSelected = _selected[i];
+            if (CanDrawElementChecker(_valueBox[i]))
+            {
+                InnerDrawingElement(i);
+            }
+            else
+            {
+                _selected[i] = false;
+            }
+
+            if (wasSelected != _selected[i])
+                if (wasSelected) CountSelectedElements--;
+                else CountSelectedElements++;
+        }
+
+        private void InnerDrawingElement(int i)
+        {
             if (ItemElementDrawCallback == null)
             {
                 _selected[i] = GUILayout.Toggle(_selected[i], _valueBox.GetContent(i), _tempStyle);
@@ -272,9 +286,6 @@ namespace GameKit.Editor
             }
 
             GUILayout.Space(PixelSpaceBetweenItems);
-            if (wasSelected != _selected[i])
-                if (wasSelected) CountSelectedElements--;
-                else CountSelectedElements++;
         }
 
         public void SetSelected(T element, bool value = true)
@@ -336,7 +347,5 @@ namespace GameKit.Editor
             for (int i = 0; i < _selected.Length; i++) _selected[i] = isSelected;
             CountSelectedElements = isSelected ? _selected.Length : 0;
         }
-
-        
     }
 }
