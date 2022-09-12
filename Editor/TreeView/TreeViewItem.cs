@@ -11,6 +11,7 @@ namespace GameKit.TreeView
         string Header { get; }
 
         void UpdateStateByContext(bool recursive);
+        //   ITreeViewItem this[int i] { get; }
     }
 
     [Serializable]
@@ -22,6 +23,8 @@ namespace GameKit.TreeView
 
         public abstract int ChildCount { get; }
         public abstract TreeViewItem this[int index] { get; }
+
+//        public List<TreeViewItem> Items = new List<TreeViewItem>();
 
         public virtual bool IsChecked
         {

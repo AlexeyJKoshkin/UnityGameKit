@@ -51,7 +51,7 @@ namespace Kitchen.EditorUtilityHelpers
                                               InputSettings settings = null)
             where T : BaseInputWindow
         {
-            settings = settings == null ? new InputSettings() : settings;
+            settings ??= new InputSettings();
             var window = GetWindow<T>(settings.Header);
             window.SetSetting(settings);
 

@@ -26,7 +26,7 @@ namespace GameKit.Editor
 #if ODIN_INSPECTOR
         private int _odinDirty = -1;
         
-        protected override int SelecttionGUI(int index, GUIContent label, float labelwidth = 70)
+        protected override int DrawSelectionGUI(int index, GUIContent label, float labelwidth = 70)
         {
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -76,7 +76,7 @@ namespace GameKit.Editor
         }
 #endif
 
-        protected override int SelecttionGUI(int index, Rect rect, GUIContent label)
+        protected override int DrawSelectionGUI(int index, Rect rect, GUIContent label)
         {
             var selectionData = GetSelectionData(index);
             var res = EditorGUI.Popup(rect, new GUIContent(label), index, selectionData.names, EditorStyles.popup);

@@ -49,6 +49,10 @@ namespace GameKit.Editor
         public bool IsSelected => Count > 0 && _currentIndex > -1;
 
         public int Count => _valueBox.Count;
+        public IEnumerable<(T item, GUIContent content)> GetItemsWithContent()
+        {
+            return _valueBox.IterateItemWithContent();
+        }
 
         /// <summary>
         ///     Текущее выбранное значение
@@ -77,11 +81,6 @@ namespace GameKit.Editor
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        public IEnumerable<(T item, GUIContent content)> GetItemsWithContent()
-        {
-            return _valueBox.IterateItemWithContent();
         }
 
         public void SetCurrent(T value)
