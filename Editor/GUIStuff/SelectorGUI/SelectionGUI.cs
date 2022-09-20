@@ -248,8 +248,15 @@ namespace GameKit.Editor
         }
 
 
-        public void DoSelectGUI(string label = null, float labelwidth = 70)
+        public void DoSelectGUI(string label = null)
         {
+            DoSelectGUI(string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label));
+        }
+        
+        
+        public void DoSelectGUI(GUIContent content)
+        {
+           
             if (_valueBox.Count == 0)
             {
                 if (!string.IsNullOrEmpty(NoElementsMessage))
@@ -259,8 +266,7 @@ namespace GameKit.Editor
             else
             {
                 EditorGUI.BeginChangeCheck();
-                var index = DrawSelectionGUI(_currentIndex,
-                                             string.IsNullOrEmpty(label) ? GUIContent.none : new GUIContent(label), labelwidth);
+                var index = DrawSelectionGUI(_currentIndex, content);
                 if (EditorGUI.EndChangeCheck())
                     if (OnSelectNewItemCallback != null && index != _currentIndex)
                     {
@@ -335,7 +341,7 @@ namespace GameKit.Editor
                     }
         }*/
 
-        protected abstract int DrawSelectionGUI(int index, GUIContent label, float labelwidth = 70);
+        protected abstract int DrawSelectionGUI(int index, GUIContent label);
 
         protected abstract int DrawSelectionGUI(int index, Rect rect, GUIContent label = null);
 

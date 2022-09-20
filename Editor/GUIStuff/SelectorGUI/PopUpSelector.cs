@@ -26,12 +26,12 @@ namespace GameKit.Editor
 #if ODIN_INSPECTOR
         private int _odinDirty = -1;
         
-        protected override int DrawSelectionGUI(int index, GUIContent label, float labelwidth = 70)
+        protected override int DrawSelectionGUI(int index, GUIContent label)
         {
             using (new EditorGUILayout.HorizontalScope())
             {
                 if (label != GUIContent.none)
-                    GUILayout.Label(label, GUILayout.Width(labelwidth));
+                    GUILayout.Label(label);
                 if (GUILayout.Button(_valueBox.GetContent(CurrentValue), EditorStyles.popup))
                 {
                    
@@ -42,9 +42,11 @@ namespace GameKit.Editor
                     {
                         odinEditorWindow.OnClose += () =>
                                                     {
-                                                        var item = (T) customOdinDrawer.SelectionTree.Selection.SelectedValue;
-                                                        _odinDirty = _valueBox.IndexOf(item); 
-                                                        SetCurrentByIndex(_odinDirty);
+                                                        if (customOdinDrawer?.SelectionTree?.Selection?.SelectedValue is T myItem)
+                                                        {
+                                                            _odinDirty = _valueBox.IndexOf(myItem); 
+                                                            SetCurrentByIndex(_odinDirty);    
+                                                        }
                                                     };
                     }
 
@@ -62,24 +64,25 @@ namespace GameKit.Editor
             return index;
         }
 #else
-        protected override int SelecttionGUI(int index, GUIContent label, float labelwidth = 70)
+        protected override int DrawSelectionGUI(int index, GUIContent label)
         {
             var selectionData = GetSelectionData(index);
 
             GUILayout.BeginHorizontal();
 
             if (label != GUIContent.none)
-                GUILayout.Label(label, GUILayout.Width(labelwidth));
+                GUILayout.Label(label);
             var res = EditorGUILayout.Popup(index, selectionData.names, GUILayout.ExpandHeight(Expand));
             GUILayout.EndHorizontal();
             return PostCheck(selectionData.hasEmpty, res);
         }
 #endif
 
-        protected override int DrawSelectionGUI(int index, Rect rect, GUIContent label)
+        protected override int DrawSelectionGUI(int index, Rect rect, GUIContent label = null)
         {
             var selectionData = GetSelectionData(index);
-            var res = EditorGUI.Popup(rect, new GUIContent(label), index, selectionData.names, EditorStyles.popup);
+            label = label == null ? GUIContent.none : label;
+            var res = EditorGUI.Popup(rect, label, index, selectionData.names, EditorStyles.popup);
             return PostCheck(selectionData.hasEmpty, res);
         }
 

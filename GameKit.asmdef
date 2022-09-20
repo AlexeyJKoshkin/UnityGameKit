@@ -2,7 +2,8 @@
     "name": "GameKit",
     "rootNamespace": "",
     "references": [
-        "GUID:ca085f2ed134e894f9656b69a886c4bd"
+        "GUID:ca085f2ed134e894f9656b69a886c4bd",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -83,11 +83,11 @@ namespace GameKit.Editor
             }
         }
 
-        protected override int DrawSelectionGUI(int selectionIndex, GUIContent label, float labelwidth = 70)
+        protected override int DrawSelectionGUI(int selectionIndex, GUIContent label)
         {
             //  var btnwidth = CalcBtnWidth();
             if (label != GUIContent.none)
-                GUILayout.Label(label, GUILayout.Width(labelwidth));
+                GUILayout.Label(label);
             OnDrawHeader?.Invoke();
             selectionIndex = ElementsDrawer(selectionIndex);
             return selectionIndex;
