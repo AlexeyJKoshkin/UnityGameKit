@@ -1,0 +1,18 @@
+{
+    "name": "BezierEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ca085f2ed134e894f9656b69a886c4bd"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
