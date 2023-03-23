@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
@@ -19,8 +20,8 @@ namespace GameKit.Editor {
         public GenericSelector(ISelectionGUI<T> popUpSelector)
         {
             _popUpOdinSelector = popUpSelector;
-            this.maxEnumLabelWidth = Mathf.Max(this.maxEnumLabelWidth,
-                                               SirenixGUIStyles.Label.CalcSize(new GUIContent(this.Title + "                      ")).x);
+            var max = popUpSelector.GetItemsWithContent().Max(o => SirenixGUIStyles.Label.CalcSize(o.content).x);
+            this.maxEnumLabelWidth = Mathf.Max(max, SirenixGUIStyles.Label.CalcSize(new GUIContent(this.Title + "                      ")).x);
         }
 
         /// <summary>
