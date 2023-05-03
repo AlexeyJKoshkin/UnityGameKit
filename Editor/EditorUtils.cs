@@ -410,7 +410,21 @@ namespace GameKit.Editor
                     Object.DestroyImmediate(go);
         }
 
-     
+
+        public static void OpenScriptByType(Type fileType)
+        {
+            var fileName = $"{fileType.Name}.cs";
+            var dir      = Environment.CurrentDirectory;
+            var files    = Directory.GetFiles(Environment.CurrentDirectory, fileName, SearchOption.AllDirectories);
+            if (files.Length < 1)
+            {
+                Debug.LogError($"{dir} {fileName} base type file not found");
+                return;
+            }
+                
+            Application.OpenURL(files[0]);
+        }
+
 
         /// <summary>
         /// Function used to remove a sub-asset that is missing the script reference
