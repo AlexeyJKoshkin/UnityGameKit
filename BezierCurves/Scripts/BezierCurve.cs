@@ -239,7 +239,7 @@ public class BezierCurve : MonoBehaviour {
 			else totalPercent += curvePercent;
 		}
 		
-		if(close && p1 == null)
+		if(p1 == null)
 		{
 			p1 = points[points.Length - 1];
 			p2 = points[0];
