@@ -40,15 +40,15 @@ internal static class SceneAutoLoader
 
     private static string MasterScene
     {
-        get => EditorPrefs.GetString(Application.buildGUID + cEditorPrefMasterScene, "Master.unity");
-        set => EditorPrefs.SetString(Application.buildGUID + cEditorPrefMasterScene, value);
+        get => EditorPrefs.GetString(Application.productName + cEditorPrefMasterScene, "Master.unity");
+        set => EditorPrefs.SetString(Application.productName + cEditorPrefMasterScene, value);
     }
 
     private static string PreviousScene
     {
-        get => EditorPrefs.GetString(Application.buildGUID + cEditorPrefPreviousScene,
+        get => EditorPrefs.GetString(Application.productName + cEditorPrefPreviousScene,
             SceneManager.GetActiveScene().name);
-        set => EditorPrefs.SetString(Application.buildGUID + cEditorPrefPreviousScene, value);
+        set => EditorPrefs.SetString(Application.productName + cEditorPrefPreviousScene, value);
     }
 
     // Menu items to select the "master" scene and control whether or not to load it.
